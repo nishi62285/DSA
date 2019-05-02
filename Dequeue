@@ -1,0 +1,98 @@
+import numpy as np
+
+class Queue:
+    totalCounter = 0
+    def __init__(self):
+        self.items = np.repeat(-1, 9)
+        self.leftCounter = -1
+        self.rightCounter = 9
+
+    def Display(self):
+        print(self.items)
+
+    def AddLeft(self, element):
+        try:
+            if Queue.totalCounter != self.items.size:
+                self.rightCounter = self.rightCounter - 1
+                np.put(self.items, self.rightCounter, element)
+                Queue.totalCounter = Queue.totalCounter + 1
+            else:
+                print("Full AddLeft")
+        except Exception as ex:
+            raise ex
+
+
+    def AddRight(self, element):
+        try:
+            if Queue.totalCounter != self.items.size:
+                self.leftCounter = self.leftCounter + 1
+                np.put(self.items, self.leftCounter, element)
+                Queue.totalCounter = Queue.totalCounter + 1
+            else:
+                print("Full AddRight")
+        except Exception as ex:
+            raise ex
+
+
+    def RemoveLeft(self):
+        try:
+            if Queue.totalCounter != 0:
+                np.put(self.items, self.rightCounter,-1)
+                if self.rightCounter == self.items.shape[0]-1:
+                    self.rightCounter = 0
+                else:
+                    self.rightCounter = self.rightCounter + 1
+                Queue.totalCounter = Queue.totalCounter - 1
+            else:
+                print("empty")
+                self.rightCounter=9
+        except Exception as ex:
+            raise ex
+
+
+    def RemoveRight(self):
+        try:
+            if Queue.totalCounter != 0:
+                np.put(self.items, self.leftCounter,-1)
+                if self.leftCounter == 0:
+                    self.leftCounter = 9
+                else:
+                    self.leftCounter = self.leftCounter - 1
+                Queue.totalCounter = Queue.totalCounter - 1
+            else:
+                print("empty")
+                self.leftCounter = -1
+        except Exception as ex:
+            raise ex
+
+
+a = Queue()
+a.AddLeft(11)
+a.AddLeft(12)
+a.AddLeft(13)
+a.AddRight(14)
+a.AddRight(15)
+a.AddLeft(16)
+a.AddRight(17)
+
+# a.RemoveLeft()
+# a.RemoveLeft()
+# a.RemoveRight()
+# a.RemoveLeft()
+# a.RemoveRight()
+# a.RemoveRight()
+# a.RemoveLeft()
+
+a.RemoveLeft()
+a.RemoveLeft()
+a.RemoveLeft()
+a.RemoveLeft()
+a.RemoveLeft()
+a.RemoveLeft()
+a.RemoveLeft()
+
+a.RemoveLeft()
+a.RemoveRight()
+
+a.AddLeft(31)
+a.AddRight(32)
