@@ -1,0 +1,62 @@
+class Node:
+    def __init__(self,val):
+        self.next = None
+        self.data = val
+
+class LinkList:
+
+    def __init__(self):
+        self.node = None
+        self.head = None
+        self.end =None
+
+    def Display(self):
+        if self.node is None:
+            raise Exception("empty list")
+        tmp = self.head
+        head_val = self.head.data
+        c =0
+        while self.head != None:
+            if self.head.data == head_val:
+                c = c + 1
+            if c == 2:
+                break
+            print(self.head.data)
+            self.head = self.head.next
+
+        self.head = tmp
+
+    def Add(self,val):
+        if self.node is None:
+            self.node = Node(val)
+            self.head = self.node
+        else:
+            new_node = Node(val)
+            self.node.next = new_node
+            self.node = new_node
+            self.node.next = self.head
+            
+
+    def DeleteFromEnd(self):
+        pass
+
+    def DeleteFromStart(self):
+        pass
+
+
+
+l = LinkList()
+l.Add(1)
+l.Add(2)
+l.Add(3)
+l.Add(4)
+l.Add(5)
+l.Add(6)
+l.Display()
+# l.Delete()
+# l.Delete()
+# l.Delete()
+# l.Delete()
+# l.Delete()
+# l.Delete()
+# l.Display()
