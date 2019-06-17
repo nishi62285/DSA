@@ -35,7 +35,7 @@ class LinkList:
             self.node.next = new_node
             self.node = new_node
             self.node.next = self.head
-            
+
 
     def DeleteFromEnd(self):
         pass
