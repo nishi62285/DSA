@@ -1,0 +1,58 @@
+input=[17,8,7,19,24,41,14,23]
+r=len(input)-1
+tmp=[]
+def merge(a,b,tmp1):
+    tmp=[]
+    new_arr=[]
+    arr1=[]
+    arr2=[]
+    h=0
+    j=0
+    if a[0] < b[0]:
+        tmp.append(a[0])
+        arr1=a
+        arr2=b
+    else:
+        tmp.append(b[0])
+        arr1 = b
+        arr2 = a
+    j = j + 1
+
+    while 1==1:
+        if j > len(arr1)-1:
+            tmp.append(arr2[h:][0])
+            break
+        if h > len(arr2)-1:
+            tmp.append(arr1[j:][0])
+            break
+
+        if arr1[j] < arr2[h]:
+            tmp.append(arr1[j])
+            j = j+1
+            if j > len(arr1)-1:
+                tmp.append(arr2[h:][0])
+                break
+        else:
+            tmp.append(arr2[h])
+            h = h + 1
+            if h > len(arr2)-1:
+                tmp.append(arr1[j:][0])
+                break
+    tmp1.append(tmp)
+
+
+def sort(arr):
+    print(arr)
+    if len(arr) == 1:
+        #tmp.append(arr)
+        return
+    else:
+        l=0
+        r=len(arr)-1
+        m = int(l + r/2)
+        sort(arr[l:m+1])
+        sort(arr[m+1:])
+        merge(arr[l:m+1],arr[m+1:],tmp)
+
+
+sort(input)
