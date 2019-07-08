@@ -1,0 +1,22 @@
+input=[17,8,7,19,24,41,14,23]
+pivot=0
+l=input[0]
+r=input[len(input)-1]
+
+def sort(input,l,r,pivot):
+    if l > r:
+        tmp=input[r]
+        input[r]=input[pivot]
+        input[pivot]=tmp
+        return (input,l,r,pivot)
+    else:
+        if input[l] > input[pivot] and input[r] < input[pivot]:
+            tmp=input[r]
+            input[r]=input[l]
+            input[r]=tmp
+        else:
+            l= l+1
+            r=r-1
+        sort(input,l,r,pivot)
+        sort(input,l,r,pivot)
+
