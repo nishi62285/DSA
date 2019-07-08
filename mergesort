@@ -2,8 +2,10 @@ input=[17,8,7,19,24,41,14,23]
 r=len(input)-1
 tmp=[]
 def merge(a,b,tmp1):
+    if a == None and b == None:
+        b=tmp1.pop()
+        a=tmp1.pop()
     tmp=[]
-    new_arr=[]
     arr1=[]
     arr2=[]
     h=0
@@ -25,7 +27,6 @@ def merge(a,b,tmp1):
         if h > len(arr2)-1:
             tmp.append(arr1[j:][0])
             break
-
         if arr1[j] < arr2[h]:
             tmp.append(arr1[j])
             j = j+1
@@ -41,18 +42,35 @@ def merge(a,b,tmp1):
     tmp1.append(tmp)
 
 
-def sort(arr):
-    print(arr)
-    if len(arr) == 1:
+def sort(arr,l,r):
+    #print(arr)
+    if l==r:
         #tmp.append(arr)
-        return
+        return [arr[r]]
     else:
-        l=0
-        r=len(arr)-1
-        m = int(l + r/2)
-        sort(arr[l:m+1])
-        sort(arr[m+1:])
-        merge(arr[l:m+1],arr[m+1:],tmp)
+        # l=0
+        # r=len(arr)-1
+        m = int((l + r)/2)
+        a=sort(arr,l,m)
+        b=sort(arr,m+1,r)
+        #print(a,b)
+        merge(a,b,tmp)
+    #return tmp
 
 
-sort(input)
+# def sort(arr):
+#     #print(arr)
+#     if len(arr) == 1:
+#         #tmp.append(arr)
+#         return arr
+#     else:
+#         l=0
+#         r=len(arr)-1
+#         m = int(l + r/2)
+#         a=sort(arr[l:m+1])
+#         b=sort(arr[m+1:])
+#         #print(a,b)
+#         merge(a,b,tmp)
+#
+sort(input,0,len(input)-1)
+print(tmp)
