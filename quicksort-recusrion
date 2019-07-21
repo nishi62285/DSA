@@ -1,22 +1,47 @@
-input=[17,8,7,19,24,41,14,23]
+input=[10,16,8,12]#10,16,8,12,15,6,3,9,5
 pivot=0
-l=input[0]
-r=input[len(input)-1]
+l=0
+r=len(input)-1
 
-def sort(input,l,r,pivot):
-    if l > r:
-        tmp=input[r]
+def quicksort(input,l,r,pivot):
+    if l > r :
+        tmp = input[r]
         input[r]=input[pivot]
         input[pivot]=tmp
-        return (input,l,r,pivot)
+        return r
     else:
-        if input[l] > input[pivot] and input[r] < input[pivot]:
-            tmp=input[r]
-            input[r]=input[l]
-            input[r]=tmp
-        else:
-            l= l+1
+        if input[l] <= input[pivot]:
+           l=l+1
+        if input[r] > input[pivot]:
             r=r-1
-        sort(input,l,r,pivot)
-        sort(input,l,r,pivot)
+        if input[l] > input[pivot] and input[r] < input[pivot] and l < r:
+            tmp = input[r]
+            input[r]=input[l]
+            input[l]=tmp
+        return quicksort(input,l,r,pivot)
 
+def sort(input,l,r,pivot):
+    if abs(l - r) > 1:
+        r=quicksort(input,l,r,pivot)
+        sort(input,0,r,0)
+        sort(input,r+1,len(input)-1,r+1)
+    a = 1
+    # if l > r:
+    #     tmp=input[r]
+    #     input[r]=input[pivot]
+    #     input[pivot]=tmp
+    #     return (input,l,r,r)
+    # else:
+    #     if input[l] > input[pivot] and input[r] < input[pivot]:
+    #         tmp=input[r]
+    #         input[r]=input[l]
+    #         input[r]=tmp
+    #     else:
+    #         l= l+1
+    #         r=r-1
+
+    #sort(input,l,r,pivot)
+
+
+sort(input,l,r,pivot)
+print(input)
