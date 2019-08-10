@@ -1,0 +1,87 @@
+
+class Node:
+    def __init__(self,value):
+        self.data=value
+        self.left=None
+        self.right=None
+    def __str__(self):
+        return str(self.data)
+
+
+class BST:
+    def __init__(self):
+        self.root=None
+        
+    def add(self,value):
+            self.root=BST.addNode(self.root,value)
+            
+    @staticmethod
+    def addNode(root, value):
+        if root==None:
+            return Node(value)
+        else:
+            if root.data>value:
+                root.left=BST.addNode(root.left,value)
+            else:
+                root.right=BST.addNode(root.right,value)
+            return root
+    
+    def preorder(self):
+        BST.preorderdisplay(self.root)
+        
+    @staticmethod
+    def preorderdisplay(root):
+        if root==None:
+            pass
+        else:
+            print(root.data, end=" ")
+            BST.preorderdisplay(root.left)
+            BST.preorderdisplay(root.right)
+            
+    @staticmethod
+    def inorderdisplay(root):
+        if root == None:
+            pass
+        else:
+            BST.inorderdisplay(root.left)
+            print(root.data)
+            BST.inorderdisplay(root.right)
+        
+    def inorder(self):
+        BST.inorderdisplay(self.root)
+        
+    
+    def postorderdisplay(root):
+        if root == None:
+            pass
+        else:
+            BST.postorderdisplay(root.left)
+            BST.postorderdisplay(root.right)
+            print(root.data)
+    
+    def postorder(self):
+        BST.postorderdisplay(self.root)
+            
+        
+    
+bst = BST()
+
+bst.add(10)
+bst.add(5)
+bst.add(20)
+bst.add(25)
+bst.add(30)
+bst.add(40)
+print(str(bst))
+    
+    
+print("****preorder*******")
+bst.preorder()
+
+print("****inorder*******")
+bst.inorder()
+    
+print("****postorderr*******")
+bst.postorder()
+    
+    
