@@ -4,9 +4,10 @@ class Node:
         self.char=char
 
 pq=[]
-input='MAHARASHTRA'
+input='NISHIKANT ABCD'
 count={}
 sortedop=[]
+
 def getCount(a):
     if count.get(a) != None:
         count[a] = int(count[a])+1
@@ -18,7 +19,7 @@ for i in input:
 
 sortedop=list(count.keys())
 sortedop.sort()
-print(sortedop)
+#print(sortedop)
 
 def Add(node):
     element=node.score
@@ -48,8 +49,6 @@ def Remove(pq):
         return nd
     res=pq[0]
     new_node = Node(res.score,res.char)
-    #pq[0]=None
-    #pq[0].score=0
     i = 0
     isDone = True
     lastIndex = len(pq)-1
@@ -60,10 +59,6 @@ def Remove(pq):
         child2 = 2 * i + 2
         min_index=0
         if i == len(pq)-1 or child1 > len(pq)-1:
-
-            # if len(pq)>0:
-            #     #pass
-            #     pq[0]=check
             break
         if child2 > len(pq)-1:
             min_index = child1
@@ -82,53 +77,127 @@ def Remove(pq):
 
     return new_node
 
+class TreeNode:
+    def __init__(self,data):
+        self.left = None
+        self.right = None
+        self.data = data
 
-
-
-
-# def merge(pq):
-#      if len(pq) == 1:
-#          return pq[0]
-#      else:
-#         a=Remove()
-#         b=Remove()
-#         totalScore= a.score+b.score
-#         totalChar=a.char+b.char
-#         Add(Node(totalScore,totalChar))
-#         merge(pq)
 
 stck=[]
 
-# while len(pq)>1:
-#     a=Remove(pq)
-#     b=Remove(pq)
-#     stck.append(a.char)
-#     stck.append(b.char)
-#     totalScore = a.score + b.score
-#     totalChar = a.char + b.char
-#     #stck.append(totalChar)
-#     Add(Node(totalScore,totalChar))
-#     ss=pq
 
 def rec():
     if len(pq)==1:
-        return
+        return pq
     else:
         a=Remove(pq)
         b=Remove(pq)
-        stck.append(str(a.char) + '-' + str(a.score))
-        stck.append(str(b.char) + '-' + str(b.score))
         totalScore = a.score + b.score
         totalChar = a.char + b.char
-        #stck.append(totalChar)
+        stck.append(a.char+ '-'+b.char)
         Add(Node(totalScore,totalChar))
+        q=rec()
+        return q
+
+a=rec()
+print(stck)
+
+def _Add(root,val):
+    if root == None:
+        pass
+    elif ''.join(root.data.split('-'))==''.join(val.split('-')):
+        root.left = TreeNode(val.split('-')[0])
+        root.right = TreeNode(val.split('-')[1])
         return
-        rec()
+    else:
+        _Add(root.left,val)
+        _Add(root.right,val)
+    return root
 
-rec()
+def GetScore(root,val,i,dict):
+    if dict.get(val) != None:
+        dict[val] = str(dict[val])+ str(i)
+    else:
+        dict[val]=i
+    if root==None:
+        pass
+    elif root.data == val:
+        return
+    else:
+        if val in root.left.data:
+            GetScore(root.left,val,0,dict)
+        else:
+            GetScore(root.right, val, 1, dict)
+    return root
 
-while len(stck)>1:
-    print(stck.pop())
+root= TreeNode(a[0].char)
+dict={}
+while len(stck) >0:
+    i=stck.pop()
+    _Add(root,i)
+
+for i in sortedop:
+    GetScore(root,i,None,dict)
+
+f = open('C:/Users/ABC/Desktop/Data/op.txt','a')
+for i in input:
+    f.write(dict.get(i)+'*')
+
+f.write('\n')
+
+for i,j in dict.items():
+    f.write(str(i)+'-'+str(j))
+    f.write('\n')
+
+f.close()
+
+r = open('C:/Users/ABC/Desktop/Data/op.txt','r')
+op=r.readline()
+
+inv_map={v:k for k,v in dict.items()}
+str=""
+for i in op.split('*'):
+    if inv_map.get(i) != None:
+        str=str + inv_map.get(i)
+
+print(str)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 #
 #
