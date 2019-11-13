@@ -1,0 +1,83 @@
+maze=[[1, 0, 0, 0],
+      [1, 1, 0, 1],
+      [0, 1, 0, 0],
+      [1, 1, 1, 1]]
+
+
+visited=["0,0",]
+stck=[[0,0]]
+
+def can_go(i,j):
+    if i >=0 and i <=3 and j >=0 and j <=3 and maze[i][j]!=0:
+        return True
+    return False
+
+
+def find_path():
+    i = 0
+    j = 0
+    while i != 3  and j != 3:
+        if can_go(i-1,j) and str(i-1)+","+str(j) not in visited:
+            stck.append([i-1,j])
+            visited.append(str(i-1)+","+str(j))
+            i=i-1
+            j=j
+            continue
+        # else:
+        #     if str(i-1)+","+str(j) in visited:
+        #       last_path=stck.pop()
+        #       i=last_path[0]
+        #       j=last_path[1]
+
+        if can_go(i+1,j) and str(i+1)+","+str(j) not in visited:
+            stck.append([i+1,j])
+            visited.append(str(i+1)+","+str(j))
+            i = i + 1
+            j = j
+            continue
+        # else:
+        #     if str(i+1)+","+str(j) in visited:
+        #       last_path=stck.pop()
+        #       i=last_path[0]
+        #       j=last_path[1]
+
+        if can_go(i,j-1) and str(i)+","+str(j-1) not in visited:
+            stck.append([i,j-1])
+            visited.append(str(i)+","+str(j-1))
+            i = i
+            j = j-1
+            continue
+        # else:
+        #     if str(i)+","+str(j-1) in visited:
+        #       last_path=stck.pop()
+        #       i=last_path[0]
+        #       j=last_path[1]
+
+        if can_go(i,j+1) and str(i)+","+str(j+1) not in visited:
+            stck.append([i,j+1])
+            visited.append(str(i)+","+str(j+1))
+            i = i
+            j = j + 1
+            continue
+        # else:
+        #     if str(i)+","+str(j+1) in visited:
+        #       last_path=stck.pop()
+        #       i=last_path[0]
+        #       j=last_path[1]
+
+
+
+
+find_path()
+
+
+
+
+
+
+
+
+
+
+
+
